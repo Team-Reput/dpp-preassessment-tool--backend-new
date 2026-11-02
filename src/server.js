@@ -15,6 +15,9 @@ app.use(cors({
 app.use(express.json());   // lets Express read JSON from req.body
 
 
+// ── Health check (load balancer, must not depend on the DB) ──
+app.get('/health', (req, res) => res.status(200).send('ok'));
+
 // ── Routes ───────────────────────────────────────────────────
 app.use('/api/contact-details', require('./routes/contact-details'));
 app.use('/api/questions',       require('./routes/questions'));
