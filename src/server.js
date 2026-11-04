@@ -25,7 +25,7 @@ app.use('/api/questions',       require('./routes/questions'));
 app.use('/api/answered-que',    require('./routes/answered-que'));
 app.use('/api/score',           require('./routes/score'));
 app.use('/api/email-report',    require('./routes/email-report'));
-
+app.use('/api/demo-request',    require('./routes/demo-request'));
 // ── Start server (always last) ───────────────────────────────
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

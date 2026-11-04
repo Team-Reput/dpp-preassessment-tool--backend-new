@@ -455,6 +455,25 @@ const emailReport = async (req, res) => {
   }
 };
 
+//POST/api/demo_request body{ass_id }
+const insertDemoRequest = async(req,res) =>{
+  try{
+    const ass_id = parseInt(req.body.ass_id,10);
+    if (!Number.isInteger(ass_id)){
+      return res.status(400).json({success: false, status_code:400, message:'/valid ass_id required', data:null});
+
+    }
+    const result   = await pool.query('SELECT dbo.fn_insert_demo_request($1) As  result',[ass_id]);
+    const response = result.rows[0].result;
+    res.status(response.status_code).json(response);
+
+  }catch(err){
+    console.error(err);
+    res.status(500).json({success:false, status_code:500, message:'Something went wrong', data:null});
+  }
+}
+
+
 module.exports = {
   insertContactDetails,
   insertAssessmentContact: insertContactDetails,
@@ -463,4 +482,5 @@ module.exports = {
   insertAnsweredQue,
   getAssessmentScoreV2,
   emailReport,
+  insertDemoRequest
 };
