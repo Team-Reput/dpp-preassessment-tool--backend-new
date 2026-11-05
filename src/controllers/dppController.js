@@ -330,10 +330,7 @@ const updateContactProfile = async (req, res) => {
       });
     }
 
-    await pool.query(
-  'UPDATE dbo.assessment_contact SET completed_at = COALESCE(completed_at, now()) WHERE ass_id = $1',
-  [ass_id]
-);
+   
 
     res.status(200).json({
       success: true,
@@ -415,6 +412,11 @@ const getAssessmentScoreV2 = async (req, res) => {
         .json({ success: false, status_code: 404, message: 'No score found for this assessment', data: null });
     }
 
+     // The person reached the score screen: mark the assessment as completed (only the first time)
+    await pool.query(
+      'UPDATE dbo.assessment_contact SET completed_at = COALESCE(completed_at, now()) WHERE ass_id = $1',
+      [ass_id]
+    )
     // Reply first so the user does not wait for the email
     res.status(200).json({ success: true, status_code: 200, message: 'Score fetched successfully', data: score });
 
