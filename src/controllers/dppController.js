@@ -330,6 +330,11 @@ const updateContactProfile = async (req, res) => {
       });
     }
 
+    await pool.query(
+  'UPDATE dbo.assessment_contact SET completed_at = COALESCE(completed_at, now()) WHERE ass_id = $1',
+  [ass_id]
+);
+
     res.status(200).json({
       success: true,
       status_code: 200,
