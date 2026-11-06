@@ -19,6 +19,7 @@ app.use(express.json());   // lets Express read JSON from req.body
 app.get('/health', (req, res) => res.status(200).send('ok'));
 
 // ── Routes ───────────────────────────────────────────────────
+app.get('/', (req, res) => res.status(200).json({ success: true, message: 'DPP API is running' }));
 app.get('/api', (req, res) => res.status(200).json({ success: true, message: 'DPP API is running' }));
 app.use('/api/contact-details', require('./routes/contact-details'));
 app.use('/api/questions',       require('./routes/questions'));
