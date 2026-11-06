@@ -416,7 +416,7 @@ const getAssessmentScoreV2 = async (req, res) => {
     await pool.query(
       'UPDATE dbo.assessment_contact SET completed_at = COALESCE(completed_at, now()) WHERE ass_id = $1',
       [ass_id]
-    )
+    );
     // Reply first so the user does not wait for the email
     res.status(200).json({ success: true, status_code: 200, message: 'Score fetched successfully', data: score });
 
